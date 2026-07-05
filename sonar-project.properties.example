@@ -1,0 +1,6 @@
+sonar.projectKey=avaliacao-llms
+sonar.projectName=Avaliação LLMs
+sonar.sources=codigos_gerados
+sonar.host.url=http://localhost:9000
+sonar.login=SEU_TOKEN_AQUI
+sonar.php.file.suffixes=php
