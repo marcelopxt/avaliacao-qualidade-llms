@@ -1,0 +1,27 @@
+<?php
+
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @return Integer
+     */
+    function averageValue($nums) {
+        $sum = 0;
+        $count = 0;
+        
+        foreach ($nums as $num) {
+            if ($num % 6 === 0) {
+                $sum += $num;
+                $count++;
+            }
+        }
+        
+        if ($count === 0) {
+            return 0;
+        }
+        
+        return floor($sum / $count);
+    }
+}
+?>

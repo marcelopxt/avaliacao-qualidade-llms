@@ -1,0 +1,27 @@
+<?php
+
+class Solution {
+
+    /**
+     * @param String $s
+     * @return Integer
+     */
+    function minAddToMakeValid($s) {
+        $open = 0;
+        $moves = 0;
+        $len = strlen($s);
+        for ($i = 0; $i < $len; $i++) {
+            if ($s[$i] === '(') {
+                $open++;
+            } else {
+                if ($open > 0) {
+                    $open--;
+                } else {
+                    $moves++;
+                }
+            }
+        }
+        return $moves + $open;
+    }
+}
+?>

@@ -1,0 +1,41 @@
+<?php
+
+class Solution {
+    private $m;
+    private $n;
+    private $total;
+    private $map;
+
+    /**
+     * @param Integer $m
+     * @param Integer $n
+     */
+    function __construct($m, $n) {
+        $this->m = $m;
+        $this->n = $n;
+        $this->total = $m * $n;
+        $this->map = [];
+    }
+  
+    /**
+     * @return Integer[]
+     */
+    function flip() {
+        $r = rand(0, $this->total - 1);
+        $this->total--;
+        
+        $actual_idx = isset($this->map[$r]) ? $this->map[$r] : $r;
+        $this->map[$r] = isset($this->map[$this->total]) ? $this->map[$this->total] : $this->total;
+        
+        return [intdiv($actual_idx, $this->n), $actual_idx % $this->n];
+    }
+  
+    /**
+     * @return NULL
+     */
+    function reset() {
+        $this->map = [];
+        $this->total = $this->m * $this->n;
+    }
+}
+?>
