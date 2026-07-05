@@ -1,0 +1,35 @@
+<?php
+class Solution {
+
+    /**
+     * @param String $s
+     * @param Integer $encCost
+     * @param Integer $flatCost
+     * @return Integer
+     */
+    function minCost($s, $encCost, $flatCost) {
+        $n = strlen($s);
+        $pre = array_fill(0, $n + 1, 0);
+        for ($i = 0; $i < $n; $i++) {
+            $pre[$i + 1] = $pre[$i] + ($s[$i] === '1' ? 1 : 0);
+        }
+
+        $dfs = function($l, $len) use (&$dfs, $pre, $encCost, $flatCost) {
+            $x = $pre[$l + $len] - $pre[$l];
+            if ($x == 0) {
+                $cost = $flatCost;
+            } else {
+                $cost = $len * $x * $encCost;
+            }
+            if (($len & 1) == 0) {
+                $half = intdiv($len, 2);
+                $split = $dfs($l, $half) + $dfs($l + $half, $half);
+                if ($split < $cost) $cost = $split;
+            }
+            return $cost;
+        };
+
+        return $dfs(0, $n);
+    }
+}
+?>

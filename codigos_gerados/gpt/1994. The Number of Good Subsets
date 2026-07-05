@@ -1,0 +1,64 @@
+<?php
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @return Integer
+     */
+    function numberOfGoodSubsets($nums) {
+        $MOD = 1000000007;
+        $cnt = array_fill(0, 31, 0);
+        foreach ($nums as $x) $cnt[$x]++;
+
+        $primes = [2,3,5,7,11,13,17,19,23,29];
+        $masks = array_fill(0, 31, -1);
+
+        for ($x = 2; $x <= 30; $x++) {
+            $t = $x;
+            $mask = 0;
+            $ok = true;
+            foreach ($primes as $i => $p) {
+                $c = 0;
+                while ($t % $p == 0) {
+                    $t /= $p;
+                    $c++;
+                }
+                if ($c > 1) {
+                    $ok = false;
+                    break;
+                }
+                if ($c == 1) $mask |= (1 << $i);
+            }
+            if ($ok) $masks[$x] = $mask;
+        }
+
+        $dp = array_fill(0, 1 << 10, 0);
+        $dp[0] = 1;
+
+        for ($x = 2; $x <= 30; $x++) {
+            if ($cnt[$x] == 0 || $masks[$x] == -1) continue;
+            $mask = $masks[$x];
+            $new = $dp;
+            for ($s = 0; $s < (1 << 10); $s++) {
+                if (($s & $mask) == 0) {
+                    $ns = $s | $mask;
+                    $new[$ns] = ($new[$ns] + $dp[$s] * $cnt[$x]) % $MOD;
+                }
+            }
+            $dp = $new;
+        }
+
+        $ans = 0;
+        for ($s = 1; $s < (1 << 10); $s++) {
+            $ans = ($ans + $dp[$s]) % $MOD;
+        }
+
+        $pow = 1;
+        for ($i = 0; $i < $cnt[1]; $i++) {
+            $pow = ($pow * 2) % $MOD;
+        }
+
+        return (int)(($ans * $pow) % $MOD);
+    }
+}
+?>

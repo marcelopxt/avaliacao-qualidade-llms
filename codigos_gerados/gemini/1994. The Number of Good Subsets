@@ -1,0 +1,69 @@
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @return Integer
+     */
+    function numberOfGoodSubsets($nums) {
+        $MOD = 1000000007;
+        $primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
+        $prime_count = count($primes);
+        
+        $count = array_fill(0, 31, 0);
+        foreach ($nums as $num) {
+            $count[$num]++;
+        }
+        
+        $dp = array_fill(0, 1 << $prime_count, 0);
+        $dp[0] = 1;
+        
+        for ($i = 2; $i <= 30; $i++) {
+            if ($count[$i] == 0) continue;
+            
+            $mask = 0;
+            $isValid = true;
+            $temp = $i;
+            
+            for ($j = 0; $j < $prime_count; $j++) {
+                $p = $primes[$j];
+                if ($temp % $p == 0) {
+                    $temp /= $p;
+                    if ($temp % $p == 0) {
+                        $isValid = false;
+                        break;
+                    }
+                    $mask |= (1 << $j);
+                }
+            }
+            
+            if (!$isValid) continue;
+            
+            for ($state = (1 << $prime_count) - 1; $state >= 0; $state--) {
+                if (($state & $mask) == 0) {
+                    $dp[$state | $mask] = ($dp[$state | $mask] + $dp[$state] * $count[$i]) % $MOD;
+                }
+            }
+        }
+        
+        $ans = 0;
+        for ($state = 1; $state < (1 << $prime_count); $state++) {
+            $ans = ($ans + $dp[$state]) % $MOD;
+        }
+        
+        if ($count[1] > 0) {
+            $pow2 = 1;
+            $base = 2;
+            $exp = $count[1];
+            while ($exp > 0) {
+                if ($exp % 2 == 1) {
+                    $pow2 = ($pow2 * $base) % $MOD;
+                }
+                $base = ($base * $base) % $MOD;
+                $exp = intdiv($exp, 2);
+            }
+            $ans = ($ans * $pow2) % $MOD;
+        }
+        
+        return $ans;
+    }
+}

@@ -1,0 +1,102 @@
+class Solution {
+
+    private $n;
+    private $maxLen;
+    private $prefLen;
+    private $sufLen;
+    private $leftChar;
+    private $rightChar;
+    private $segLen;
+
+    /**
+     * @param String $s
+     * @param String $queryCharacters
+     * @param Integer[] $queryIndices
+     * @return Integer[]
+     */
+    function longestRepeating($s, $queryCharacters, $queryIndices) {
+        $chars = str_split($s);
+        $this->n = count($chars);
+        $size = 4 * $this->n;
+        $this->maxLen = array_fill(0, $size, 0);
+        $this->prefLen = array_fill(0, $size, 0);
+        $this->sufLen = array_fill(0, $size, 0);
+        $this->leftChar = array_fill(0, $size, '');
+        $this->rightChar = array_fill(0, $size, '');
+        $this->segLen = array_fill(0, $size, 0);
+
+        $this->build(1, 0, $this->n - 1, $chars);
+
+        $k = count($queryIndices);
+        $result = array_fill(0, $k, 0);
+
+        for ($i = 0; $i < $k; $i++) {
+            $idx = $queryIndices[$i];
+            $ch = $queryCharacters[$i];
+            $this->update(1, 0, $this->n - 1, $idx, $ch);
+            $result[$i] = $this->maxLen[1];
+        }
+
+        return $result;
+    }
+
+    private function build($node, $l, $r, &$chars) {
+        if ($l == $r) {
+            $this->maxLen[$node] = 1;
+            $this->prefLen[$node] = 1;
+            $this->sufLen[$node] = 1;
+            $this->leftChar[$node] = $chars[$l];
+            $this->rightChar[$node] = $chars[$l];
+            $this->segLen[$node] = 1;
+            return;
+        }
+        $mid = intdiv($l + $r, 2);
+        $leftNode = 2 * $node;
+        $rightNode = 2 * $node + 1;
+        $this->build($leftNode, $l, $mid, $chars);
+        $this->build($rightNode, $mid + 1, $r, $chars);
+        $this->merge($node, $leftNode, $rightNode);
+    }
+
+    private function merge($node, $leftNode, $rightNode) {
+        $this->segLen[$node] = $this->segLen[$leftNode] + $this->segLen[$rightNode];
+        $this->leftChar[$node] = $this->leftChar[$leftNode];
+        $this->rightChar[$node] = $this->rightChar[$rightNode];
+
+        $this->prefLen[$node] = $this->prefLen[$leftNode];
+        if ($this->leftChar[$leftNode] == $this->rightChar[$leftNode] && $this->segLen[$leftNode] == $this->prefLen[$leftNode]) {
+            if ($this->rightChar[$leftNode] == $this->leftChar[$rightNode]) {
+                $this->prefLen[$node] = $this->segLen[$leftNode] + $this->prefLen[$rightNode];
+            }
+        }
+
+        $this->sufLen[$node] = $this->sufLen[$rightNode];
+        if ($this->leftChar[$rightNode] == $this->rightChar[$rightNode] && $this->segLen[$rightNode] == $this->sufLen[$rightNode]) {
+            if ($this->rightChar[$leftNode] == $this->leftChar[$rightNode]) {
+                $this->sufLen[$node] = $this->segLen[$rightNode] + $this->sufLen[$leftNode];
+            }
+        }
+
+        $this->maxLen[$node] = max($this->maxLen[$leftNode], $this->maxLen[$rightNode]);
+        if ($this->rightChar[$leftNode] == $this->leftChar[$rightNode]) {
+            $this->maxLen[$node] = max($this->maxLen[$node], $this->sufLen[$leftNode] + $this->prefLen[$rightNode]);
+        }
+    }
+
+    private function update($node, $l, $r, $idx, $ch) {
+        if ($l == $r) {
+            $this->leftChar[$node] = $ch;
+            $this->rightChar[$node] = $ch;
+            return;
+        }
+        $mid = intdiv($l + $r, 2);
+        $leftNode = 2 * $node;
+        $rightNode = 2 * $node + 1;
+        if ($idx <= $mid) {
+            $this->update($leftNode, $l, $mid, $idx, $ch);
+        } else {
+            $this->update($rightNode, $mid + 1, $r, $idx, $ch);
+        }
+        $this->merge($node, $leftNode, $rightNode);
+    }
+}

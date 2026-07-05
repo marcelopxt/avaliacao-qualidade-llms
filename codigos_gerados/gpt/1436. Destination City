@@ -1,0 +1,20 @@
+<?php
+class Solution {
+
+    /**
+     * @param String[][] $paths
+     * @return String
+     */
+    function destCity($paths) {
+        $outgoing = [];
+        foreach ($paths as $path) {
+            $outgoing[$path[0]] = true;
+        }
+        foreach ($paths as $path) {
+            if (!isset($outgoing[$path[1]])) {
+                return $path[1];
+            }
+        }
+        return "";
+    }
+}

@@ -1,0 +1,19 @@
+class Solution {
+
+    /**
+     * @param String[][] $paths
+     * @return String
+     */
+    function destCity($paths) {
+        $sources = [];
+        foreach ($paths as $p) {
+            $sources[$p[0]] = true;
+        }
+        foreach ($paths as $p) {
+            if (!isset($sources[$p[1]])) {
+                return $p[1];
+            }
+        }
+        return "";
+    }
+}

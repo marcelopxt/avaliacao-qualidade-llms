@@ -1,0 +1,20 @@
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @return Integer
+     */
+    function pivotIndex($nums) {
+        $totalSum = array_sum($nums);
+        $leftSum = 0;
+        
+        foreach ($nums as $index => $num) {
+            if ($leftSum == $totalSum - $leftSum - $num) {
+                return $index;
+            }
+            $leftSum += $num;
+        }
+        
+        return -1;
+    }
+}
