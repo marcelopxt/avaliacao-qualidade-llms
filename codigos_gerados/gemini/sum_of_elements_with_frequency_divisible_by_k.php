@@ -1,0 +1,21 @@
+<?php
+
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @param Integer $k
+     * @return Integer
+     */
+    function sumDivisibleByK($nums, $k) {
+        $counts = array_count_values($nums);
+        $sum = 0;
+        foreach ($counts as $val => $freq) {
+            if ($freq % $k === 0) {
+                $sum += $val * $freq;
+            }
+        }
+        return $sum;
+    }
+}
+?>

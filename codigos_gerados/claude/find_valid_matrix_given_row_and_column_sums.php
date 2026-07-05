@@ -1,0 +1,30 @@
+<?php
+
+class Solution {
+
+    /**
+     * @param Integer[] $rowSum
+     * @param Integer[] $colSum
+     * @return Integer[][]
+     */
+    function restoreMatrix($rowSum, $colSum) {
+        $n = count($rowSum);
+        $m = count($colSum);
+        $matrix = array_fill(0, $n, array_fill(0, $m, 0));
+
+        $r = $rowSum;
+        $c = $colSum;
+
+        for ($i = 0; $i < $n; $i++) {
+            for ($j = 0; $j < $m; $j++) {
+                $val = min($r[$i], $c[$j]);
+                $matrix[$i][$j] = $val;
+                $r[$i] -= $val;
+                $c[$j] -= $val;
+            }
+        }
+
+        return $matrix;
+    }
+}
+?>

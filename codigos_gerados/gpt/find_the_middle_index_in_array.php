@@ -1,0 +1,23 @@
+<?php
+
+class Solution {
+
+/**
+* @param Integer[] $nums
+* @return Integer
+*/
+function findMiddleIndex($nums) {
+$total = array_sum($nums);
+$left = 0;
+$n = count($nums);
+for ($i = 0; $i < $n; $i++) {
+    $right=$total - $left - $nums[$i];
+    if ($left==$right) {
+    return $i;
+    }
+    $left +=$nums[$i];
+    }
+    return -1;
+    }
+    }
+?>

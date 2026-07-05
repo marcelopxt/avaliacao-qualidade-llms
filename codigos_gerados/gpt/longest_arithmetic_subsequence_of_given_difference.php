@@ -1,0 +1,22 @@
+<?php
+
+class Solution {
+
+/**
+* @param Integer[] $arr
+* @param Integer $difference
+* @return Integer
+*/
+function longestSubsequence($arr, $difference) {
+$dp = [];
+$ans = 0;
+foreach ($arr as $x) {
+$prev = $x - $difference;
+$len = (isset($dp[$prev]) ? $dp[$prev] : 0) + 1;
+$dp[$x] = $len;
+if ($len > $ans) $ans = $len;
+}
+return $ans;
+}
+}
+?>

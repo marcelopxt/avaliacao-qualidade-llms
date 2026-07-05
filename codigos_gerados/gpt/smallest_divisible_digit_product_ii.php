@@ -1,0 +1,89 @@
+<?php
+
+class Solution {
+
+private $digitExp = [
+1 => [0,0,0,0],
+2 => [1,0,0,0],
+3 => [0,1,0,0],
+4 => [2,0,0,0],
+5 => [0,0,1,0],
+6 => [1,1,0,0],
+7 => [0,0,0,1],
+8 => [3,0,0,0],
+9 => [0,2,0,0],
+];
+
+private function needDigits($a,$b,$c,$d){
+if($d>0) return PHP_INT_MAX;
+$cnt=0;
+$cnt+=$c;
+$cnt+=$b>>1;
+$b&=1;
+while($a>=3){ $cnt++; $a-=3; }
+if($b){
+if($a>=1){ $cnt++; $a-=1; }
+else{ $cnt++; $a=0; }
+}
+while($a>0){
+if($a>=3){ $cnt++; $a-=3; }
+elseif($a==2){ $cnt++; $a=0; }
+else{ $cnt++; $a=0; }
+}
+return $cnt;
+}
+
+public function smallestNumber($num, $t) {
+$x=$t;
+$req=[0,0,0,0];
+$pr=[2,3,5,7];
+for($i=0;$i<4;$i++){
+    while($x%$pr[$i]==0){
+    $req[$i]++;
+    $x=intdiv($x,$pr[$i]);
+    }
+    }
+    if($x!=1) return "-1" ;
+
+    $n=strlen($num);
+
+    for($len=$n;$len<=$n+20;$len++){
+    $start=($len==$n);
+    $pref=[0,0,0,0];
+    $res="" ;
+    $tight=true;
+    $ok=true;
+    for($i=0;$i<$len;$i++){
+    $from=1;
+    if($start && $tight){
+    $from=max(1,intval($num[$i]));
+    }
+    $placed=false;
+    for($d=$from;$d<=9;$d++){
+    $np=$pref;
+    $e=$this->digitExp[$d];
+    for($k=0;$k<4;$k++) $np[$k]+=$e[$k];
+        $need=[
+        max(0,$req[0]-$np[0]),
+        max(0,$req[1]-$np[1]),
+        max(0,$req[2]-$np[2]),
+        max(0,$req[3]-$np[3]),
+        ];
+        $min=$this->needDigits($need[0],$need[1],$need[2],$need[3]);
+        if($min<=$len-$i-1){
+            $placed=true;
+            $res.=chr(48+$d);
+            $pref=$np;
+            if($start && $tight && $d==intval($num[$i])){
+            }else $tight=false;
+            break;
+            }
+            }
+            if(!$placed){ $ok=false; break; }
+            }
+            if($ok) return $res;
+            }
+            return "-1" ;
+            }
+            }
+?>
