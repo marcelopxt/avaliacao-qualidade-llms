@@ -1,6 +1,0 @@
-projectKey=avaliacao-llms
-serverUrl=http://localhost:9000
-serverVersion=26.6.0.123539
-dashboardUrl=http://localhost:9000/dashboard?id=avaliacao-llms
-ceTaskId=2b52b5aa-97f8-41a8-89dd-97e53588f0ba
-ceTaskUrl=http://localhost:9000/api/ce/task?id=2b52b5aa-97f8-41a8-89dd-97e53588f0ba
