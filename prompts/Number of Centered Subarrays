@@ -1,0 +1,58 @@
+You are an expert algorithm developer. Solve the following programming problem using PHP.
+
+CRITICAL CONSTRAINTS:
+
+1. Return ONLY the raw PHP code within a single `php`  code block.
+2. DO NOT include any explanations, greetings, comments, or breakdown of the logic.
+3. DO NOT include example usage or manual test cases at the bottom.
+4. Implement your solution strictly using the class and method signature provided in the "BASE CODE" section.
+
+PROBLEM DESCRIPTION:
+You are given an integer array `nums`.
+
+A **subarray** of `nums` is called **centered** if the sum of its elements is **equal to at least one** element within that **same subarray**.
+
+Return the number of **centered subarrays** of `nums`.
+
+**Example 1:**
+
+**Input:** nums = [-1,1,0]
+
+**Output:** 5
+
+**Explanation:**
+
+- All single-element subarrays (`[-1]`, `[1]`, `[0]`) are centered.
+- The subarray `[1, 0]` has a sum of 1, which is present in the subarray.
+- The subarray `[-1, 1, 0]` has a sum of 0, which is present in the subarray.
+- Thus, the answer is 5.
+
+**Example 2:**
+
+**Input:** nums = [2,-3]
+
+**Output:** 2
+
+**Explanation:**
+
+Only single-element subarrays (`[2]`, `[-3]`) are centered.
+
+**Constraints:**
+
+- `1 <= nums.length <= 500`
+- `105 <= nums[i] <= 105`
+
+BASE CODE:
+
+```php
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @return Integer
+     */
+    function centeredSubarrays($nums) {
+        
+    }
+}
+```

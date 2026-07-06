@@ -1,0 +1,48 @@
+You are an expert algorithm developer. Solve the following programming problem using PHP.
+
+CRITICAL CONSTRAINTS:
+
+1. Return ONLY the raw PHP code within a single `php`  code block.
+2. DO NOT include any explanations, greetings, comments, or breakdown of the logic.
+3. DO NOT include example usage or manual test cases at the bottom.
+4. Implement your solution strictly using the class and method signature provided in the "BASE CODE" section.
+
+PROBLEM DESCRIPTION:
+An **ugly number** is a positive integer whose prime factors are limited to `2`, `3`, and `5`.
+
+Given an integer `n`, return *the* `nth` ***ugly number***.
+
+**Example 1:**
+
+```
+Input: n = 10
+Output: 12
+Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.
+```
+
+**Example 2:**
+
+```
+Input: n = 1
+Output: 1
+Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+```
+
+**Constraints:**
+
+- `1 <= n <= 1690`
+
+BASE CODE:
+
+```php
+class Solution {
+
+    /**
+     * @param Integer $n
+     * @return Integer
+     */
+    function nthUglyNumber($n) {
+        
+    }
+}
+```
