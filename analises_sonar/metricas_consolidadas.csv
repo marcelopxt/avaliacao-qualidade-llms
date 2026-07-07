@@ -1,0 +1,63 @@
+,,,,,,,,,,
+,,,,,,,,,,
+,ID,Nome,Dificuldade,IA Avaliada,Status LeetCode,Testes Passados,Tempo (ms),Memória (MB),Ciclomática,Cognitiva
+,264,Ugly Number II,Médio,Gemini,Accepted,596 / 596,15,20.48,5,7
+,264,Ugly Number II,Médio,GPT,Accepted,596 / 596,17,20.37,5,7
+,264,Ugly Number II,Médio,Claude,Accepted,596 / 596,16,20.58,5,7
+,519,Random Flip Matrix,Médio,Gemini,Accepted,20 / 20,1,20.70,5,2
+,519,Random Flip Matrix,Médio,GPT,Accepted,20 / 20,3,20.86,5,2
+,519,Random Flip Matrix,Médio,Claude,Accepted,20 / 20,1,20.86,5,2
+,724,Find Pivot Index,Fácil,Gemini,Accepted,747 / 747,1,21.34,3,3
+,724,Find Pivot Index,Fácil,GPT,Accepted,747 / 747,1,21.84,3,3
+,724,Find Pivot Index,Fácil,Claude,Accepted,747 / 747,1,21.50,3,3
+,921,Minimum Add to Make Parentheses Valid,Médio,Gemini,Accepted,116 / 116,0,20.31,4,8
+,921,Minimum Add to Make Parentheses Valid,Médio,GPT,Accepted,116 / 116,0,20.64,4,8
+,921,Minimum Add to Make Parentheses Valid,Médio,Claude,Accepted,116 / 116,0,20.15,4,8
+,947,Most Stones Removed with Same Row or Column,Médio,Gemini,Accepted,69 / 69,6,21.32,7,4
+,947,Most Stones Removed with Same Row or Column,Médio,GPT,Accepted,69 / 69,8,21.31,11,11
+,947,Most Stones Removed with Same Row or Column,Médio,Claude,Accepted,69 / 69,10,21.37,8,5
+,1218,Longest Arithmetic Subsequence of Given Difference,Médio,Gemini,Accepted,41 / 41,19,27.43,4,6
+,1218,Longest Arithmetic Subsequence of Given Difference,Médio,GPT,Accepted,41 / 41,19,27.39,4,5
+,1218,Longest Arithmetic Subsequence of Given Difference,Médio,Claude,Accepted,41 / 41,20,27.39,4,5
+,1436,Destination City,Fácil,Gemini,Accepted,104 / 104,0,20.59,4,4
+,1436,Destination City,Fácil,GPT,Accepted,104 / 104,0,20.46,4,4
+,1436,Destination City,Fácil,Claude,Accepted,104 / 104,0,20.68,4,4
+,1605,Find Valid Matrix Given Row and Column Sums,Médio,Gemini,Accepted,85 / 85,6,32.99,5,6
+,1605,Find Valid Matrix Given Row and Column Sums,Médio,GPT,Accepted,85 / 85,9,33.22,6,7
+,1605,Find Valid Matrix Given Row and Column Sums,Médio,Claude,Accepted,85 / 85,74,33.59,3,3
+,1991,Find the Middle Index in Array,Fácil,Gemini,Accepted,294 / 294,0,20.34,3,3
+,1991,Find the Middle Index in Array,Fácil,GPT,Accepted,294 / 294,0,20.23,3,3
+,1991,Find the Middle Index in Array,Fácil,Claude,Accepted,294 / 294,0,20.47,3,3
+,1994,The Number of Good Subsets,Difícil,Gemini,Accepted,92 / 92,40,27.03,14,27
+,1994,The Number of Good Subsets,Difícil,GPT,Accepted,92 / 92,46,26.54,15,26
+,1994,The Number of Good Subsets,Difícil,Claude,Accepted,92 / 92,41,27.34,14,29
+,2213,Longest Substring of One Repeating Character,Difícil,Gemini,Accepted,57 / 57 ,2221,67.84,13,10
+,2213,Longest Substring of One Repeating Character,Difícil,GPT,Accepted,57 / 57 ,3439,118.64,14,12
+,2213,Longest Substring of One Repeating Character,Difícil,Claude,Accepted,57 / 57 ,3109,71.91,15,14
+,2455,Average Value of Even Numbers That Are Divisible by Three,Fácil,Gemini,Accepted,181 / 181,0,20.63,4,4
+,2455,Average Value of Even Numbers That Are Divisible by Three,Fácil,GPT,Accepted,181 / 181,0,20.64,4,4
+,2455,Average Value of Even Numbers That Are Divisible by Three,Fácil,Claude,Accepted,181 / 181,0,20.63,4,4
+,2735,Collecting Chocolates,Médio,Gemini,Accepted,2564 / 2564,791,20.48,4,5
+,2735,Collecting Chocolates,Médio,GPT,Accepted,2564 / 2564,506,19.97,7,14
+,2735,Collecting Chocolates,Médio,Claude,Accepted,2564 / 2564,571,20.64,6,10
+,2747,Count Zero Request Servers,Médio,Gemini,Accepted,3129 / 3129,467,105.28,13,20
+,2747,Count Zero Request Servers,Médio,GPT,Accepted,3129 / 3129,464,106.96,12,17
+,2747,Count Zero Request Servers,Médio,Claude,Accepted,3129 / 3129,380,106.54,10,13
+,3348,Smallest Divisible Digit Product II,Difícil,Gemini,Wrong Answer,363 / 954,-,-,28,33
+,3348,Smallest Divisible Digit Product II,Difícil,GPT,Wrong Answer,410 / 954,-,-,24,45
+,3348,Smallest Divisible Digit Product II,Difícil,Claude,Accepted,954 / 954,499,38.20,30,51
+,3435,Frequencies of Shortest Supersequences,Difícil,Gemini,Time Limit Exceeded,704 / 808,-,-,16,49
+,3435,Frequencies of Shortest Supersequences,Difícil,GPT,Wrong Answer,631 / 808,-,-,25,59
+,3435,Frequencies of Shortest Supersequences,Difícil,Claude,Accepted,808 / 808 ,335,21.21,22,52
+,3712,Sum of Elements With Frequency Divisible by K,Fácil,Gemini,Accepted,755 / 755,0,20.18,3,3
+,3712,Sum of Elements With Frequency Divisible by K,Fácil,GPT,Accepted,755 / 755,0,20.33,5,6
+,3712,Sum of Elements With Frequency Divisible by K,Fácil,Claude,Accepted,755 / 755,0,20.52,5,6
+,3732,Maximum Product of Three Elements After One Replacement,Médio,Gemini,Accepted,821 / 821,1056,33.14,3,1
+,3732,Maximum Product of Three Elements After One Replacement,Médio,GPT,Wrong Answer,782 / 821 ,-,-,13,25
+,3732,Maximum Product of Three Elements After One Replacement,Médio,Claude,Accepted,821 / 821,1402,54.63,26,43
+,3804,Number of Centered Subarrays,Médio,Gemini,Accepted,1042 / 1042,91,20.56,4,6
+,3804,Number of Centered Subarrays,Médio,GPT,Accepted,1042 / 1042,91,20.11,4,6
+,3804,Number of Centered Subarrays,Médio,Claude,Accepted,1042 / 1042,3234,20.34,5,10
+,3864,Minimum Cost to Partition a Binary String,Difícil,Gemini,Accepted,1009 / 1009,809,25.74,8,14
+,3864,Minimum Cost to Partition a Binary String,Difícil,GPT,Accepted,1009 / 1009,872,152.14,7,11
+,3864,Minimum Cost to Partition a Binary String,Difícil,Claude,Accepted,1009 / 1009,811,152.04,7,11
