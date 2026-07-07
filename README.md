@@ -22,8 +22,7 @@
 - [Estrutura do Repositório](#-estrutura-do-repositório)
 - [Guia de Reprodução do Estudo](#-guia-de-reprodução-do-estudo)
   - [Pré-requisitos](#pré-requisitos)
-  - [Instalação dos Pré-requisitos](#instalação-dos-pré-requisitos)
-  - [Verificação do Ambiente](#verificação-do-ambiente)
+  - [Instalação (Windows)](#instalação-windows)
   - [Etapa 1 — Validação Lógica no LeetCode](#etapa-1--validação-lógica-no-leetcode)
   - [Etapa 2 — Análise Estática no SonarQube](#etapa-2--análise-estática-no-sonarqube)
   - [Resolução de Problemas](#resolução-de-problemas)
@@ -39,14 +38,14 @@ Este repositório documenta a pesquisa **"Avaliação de Desempenho e Aspectos d
 
 O estudo avalia, de forma empírica e descritiva, o desempenho de três Modelos de Linguagem de Grande Escala (LLMs) na geração de código PHP para problemas algorítmicos, considerando quatro dimensões principais:
 
-| Dimensão                                | O que mede                                                                    |
-| --------------------------------------- | ----------------------------------------------------------------------------- |
-| ✅ **Assertividade lógica**             | Se o código gerado resolve corretamente o problema proposto.                  |
-| ⏱️ **Tempo de execução**                | O tempo reportado pela plataforma LeetCode para as soluções aceitas.          |
-| 💾 **Consumo de memória**               | O uso de memória reportado pela plataforma LeetCode para as soluções aceitas. |
-| 🧩 **Aspectos de qualidade estrutural** | Complexidade Ciclomática e Complexidade Cognitiva extraídas via SonarQube.    |
+| Dimensão | O que mede |
+|---|---|
+| ✅ **Assertividade lógica** | Se o código gerado resolve corretamente o problema proposto. |
+| ⏱️ **Tempo de execução** | O tempo reportado pela plataforma LeetCode para as soluções aceitas. |
+| 💾 **Consumo de memória** | O uso de memória reportado pela plataforma LeetCode para as soluções aceitas. |
+| 🧩 **Aspectos de qualidade estrutural** | Complexidade Ciclomática e Complexidade Cognitiva extraídas via SonarQube. |
 
-Foram selecionados **20 problemas algorítmicos da plataforma LeetCode**, resolvidos por cada LLM utilizando a técnica de **Zero-Shot Prompting**, isto é, sem exemplos prévios, sem _fine-tuning_ e sem tentativas sucessivas de correção manual.
+Foram selecionados **20 problemas algorítmicos da plataforma LeetCode**, resolvidos por cada LLM utilizando a técnica de **Zero-Shot Prompting**, isto é, sem exemplos prévios, sem *fine-tuning* e sem tentativas sucessivas de correção manual.
 
 > 💡 O foco do estudo não é apenas verificar se o código funciona, mas também observar como as soluções se comportam em termos de complexidade estrutural, tempo de execução e consumo de memória dentro da amostra analisada.
 
@@ -56,23 +55,23 @@ Foram selecionados **20 problemas algorítmicos da plataforma LeetCode**, resolv
 
 ### Modelos de IA avaliados
 
-| Modelo                  | Provedor  | Fonte oficial                                      |
-| ----------------------- | --------- | -------------------------------------------------- |
-| 🟣 **Claude Sonnet 5**  | Anthropic | [Anthropic](https://www.anthropic.com/)            |
-| 🔵 **Gemini 3.5 Flash** | Google    | [Google AI for Developers](https://ai.google.dev/) |
-| 🟢 **GPT-5.5 Instant**  | OpenAI    | [OpenAI](https://openai.com/)                      |
+| Modelo | Provedor | Fonte oficial |
+|---|---|---|
+| 🟣 **Claude Sonnet 5** | Anthropic | [Anthropic](https://www.anthropic.com/) |
+| 🔵 **Gemini 3.5 Flash** | Google | [Google AI for Developers](https://ai.google.dev/) |
+| 🟢 **GPT-5.5 Instant** | OpenAI | [OpenAI](https://openai.com/) |
 
 > Os nomes dos modelos correspondem às versões gratuitas disponíveis no período de realização do estudo. Como interfaces públicas podem ser atualizadas pelos provedores, recomenda-se registrar a data de acesso ao reproduzir o experimento.
 
 ### Ferramentas utilizadas
 
-| Ferramenta           | Finalidade                                                                  |
-| -------------------- | --------------------------------------------------------------------------- |
-| **PHP**              | Linguagem-alvo da geração de código.                                        |
-| **LeetCode**         | Validação lógica e funcional das soluções.                                  |
-| **SonarQube**        | Extração das métricas de Complexidade Ciclomática e Complexidade Cognitiva. |
-| **SonarScanner CLI** | Execução da varredura local e envio dos dados ao SonarQube.                 |
-| **Docker Compose**   | Provisionamento reprodutível do ambiente do SonarQube com versão fixa.      |
+| Ferramenta | Finalidade |
+|---|---|
+| **PHP** | Linguagem-alvo da geração de código. |
+| **LeetCode** | Validação lógica e funcional das soluções. |
+| **SonarQube** | Extração das métricas de Complexidade Ciclomática e Complexidade Cognitiva. |
+| **SonarScanner CLI** | Execução da varredura local e envio dos dados ao SonarQube. |
+| **Docker Compose** | Provisionamento reprodutível do ambiente do SonarQube com versão fixa. |
 
 > As versões exatas de cada ferramenta usadas na pesquisa estão documentadas em [`VERSIONS.md`](./VERSIONS.md).
 
@@ -118,284 +117,59 @@ Esta seção descreve o procedimento completo — desde a instalação das ferra
 
 ### Pré-requisitos
 
-Antes de iniciar, certifique-se de que as seguintes ferramentas estão instaladas e acessíveis no terminal:
-
-| Ferramenta            | Versão recomendada | Obrigatória         | Finalidade                                             |
-| --------------------- | ------------------ | ------------------- | ------------------------------------------------------ |
-| **Git**               | `>= 2.30`          | Sim                 | Clonar o repositório.                                  |
-| **Docker Engine**     | `>= 24.0`          | Sim                 | Executar o container do SonarQube.                     |
-| **Docker Compose**    | `>= 2.0` (plugin)  | Sim                 | Orquestrar o serviço definido em `docker-compose.yml`. |
-| **SonarScanner CLI**  | `6.2.1`            | Sim                 | Enviar o código-fonte para análise no SonarQube.       |
-| **Java (JRE/JDK)**    | `17`               | Sim                 | Dependência de execução do SonarScanner CLI.           |
-| **Navegador web**     | Qualquer moderno   | Sim                 | Acessar a interface do SonarQube e o LeetCode.         |
-| **Conta no LeetCode** | —                  | Apenas para Etapa 1 | Submeter as soluções para validação lógica.            |
-
-> ⚠️ O **Docker Compose v2** é distribuído como plugin do Docker CLI (comando `docker compose`, sem hífen). Versões anteriores usavam o binário separado `docker-compose`. Este repositório assume o formato v2.
-
-> ⚠️ O **SonarScanner CLI** exige Java 17 como dependência de execução. Caso o Java não esteja instalado, o scanner não será iniciado.
+| Ferramenta | Finalidade |
+|---|---|
+| **Git** | Clonar o repositório. |
+| **Docker Desktop** | Executar o container do SonarQube (já inclui Docker Compose). |
+| **Node.js / npm** | Instalar o SonarScanner CLI. |
+| **Navegador web** | Acessar a interface do SonarQube e o LeetCode. |
+| **Conta no LeetCode** | Submeter as soluções para validação lógica (apenas Etapa 1). |
 
 ---
 
-### Instalação dos Pré-requisitos
+### Instalação (Windows)
 
-#### Git
+#### 1. Git
 
-<details>
-<summary><strong>Windows</strong></summary>
+Baixe e instale pelo site oficial: [git-scm.com/download/win](https://git-scm.com/download/win), seguindo o assistente com as opções padrão.
 
-1. Baixe o instalador oficial em [git-scm.com/download/win](https://git-scm.com/download/win).
-2. Execute o instalador e siga o assistente com as opções padrão.
-3. Após a instalação, abra o **Git Bash** ou **PowerShell** e verifique:
-   ```bash
-   git --version
-   ```
+#### 2. Docker Desktop
 
-</details>
-
-<details>
-<summary><strong>macOS</strong></summary>
-
-O Git geralmente já vem pré-instalado. Caso contrário:
-
-```bash
-# Via Homebrew
-brew install git
-```
-
-</details>
-
-<details>
-<summary><strong>Linux (Debian/Ubuntu)</strong></summary>
-
-```bash
-sudo apt update && sudo apt install git -y
-```
-
-</details>
-
----
-
-#### Docker e Docker Compose
-
-<details>
-<summary><strong>Windows</strong></summary>
-
-Via **winget** (recomendado):
-
-```powershell
-winget install Docker.DockerDesktop
-```
-
-Alternativamente, baixe o instalador manual em [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/).
+Baixe e instale pelo site oficial: [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/).
 
 Após a instalação:
 
 1. Habilite o backend **WSL 2** quando solicitado (recomendado).
 2. Reinicie o computador se necessário.
 3. Abra o Docker Desktop e aguarde a inicialização completa (ícone na bandeja do sistema ficará estável).
-4. O Docker Compose v2 já vem incluído no Docker Desktop.
 
-</details>
+> O Docker Compose v2 já vem incluído no Docker Desktop.
 
-<details>
-<summary><strong>macOS</strong></summary>
+#### 3. Node.js
 
-Via **Homebrew**:
+Baixe e instale a versão **LTS** pelo site oficial: [nodejs.org](https://nodejs.org/). O npm será instalado automaticamente junto com o Node.js.
 
-```bash
-brew install --cask docker
-```
+#### 4. SonarScanner CLI
 
-Alternativamente, baixe o instalador em [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/).
-
-Após a instalação, abra o Docker Desktop. O Docker Compose v2 já vem incluído.
-
-</details>
-
-<details>
-<summary><strong>Linux (Debian/Ubuntu)</strong></summary>
-
-Siga a documentação oficial para instalar o Docker Engine:
+Com o Node.js e npm já instalados, execute no terminal:
 
 ```bash
-# Adicionar a chave GPG oficial do Docker
-sudo apt update
-sudo apt install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Adicionar o repositório
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# Instalar Docker Engine e Docker Compose plugin
-sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+npm install -g sonar-scanner
 ```
 
-Para usar o Docker sem `sudo`:
+#### Verificação
 
-```bash
-sudo usermod -aG docker $USER
-# Faça logout e login novamente para aplicar
-```
-
-> 📖 Documentação completa: [docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-
-</details>
-
----
-
-#### Java 17 (JRE/JDK)
-
-O SonarScanner CLI exige o **Java 17** para funcionar.
-
-<details>
-<summary><strong>Windows</strong></summary>
-
-1. Baixe o instalador do **Eclipse Temurin JDK 17** (distribuição recomendada) em [adoptium.net](https://adoptium.net/).
-2. Execute o instalador e **marque a opção para configurar a variável `JAVA_HOME`** e adicionar ao `PATH`.
-3. Verifique a instalação:
-   ```bash
-   java -version
-   ```
-
-Alternativamente, via **winget**:
+Abra o **PowerShell** e execute os comandos abaixo para confirmar que tudo está instalado:
 
 ```powershell
-winget install EclipseAdoptium.Temurin.17.JDK
-```
-
-</details>
-
-<details>
-<summary><strong>macOS</strong></summary>
-
-```bash
-# Via Homebrew
-brew install --cask temurin@17
-```
-
-</details>
-
-<details>
-<summary><strong>Linux (Debian/Ubuntu)</strong></summary>
-
-```bash
-sudo apt update && sudo apt install openjdk-17-jre -y
-```
-
-</details>
-
----
-
-#### SonarScanner CLI
-
-<details>
-<summary><strong>Windows</strong></summary>
-
-```powershell
-# Baixar o SonarScanner CLI 6.2.1 para Windows
-Invoke-WebRequest -Uri "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-windows-x64.zip" -OutFile "$env:TEMP\sonar-scanner.zip"
-
-# Extrair para C:\sonar-scanner
-Expand-Archive -Path "$env:TEMP\sonar-scanner.zip" -DestinationPath "C:\" -Force
-Rename-Item "C:\sonar-scanner-6.2.1.4610-windows-x64" "C:\sonar-scanner"
-
-# Adicionar ao PATH (sessão atual)
-$env:PATH += ";C:\sonar-scanner\bin"
-
-# Adicionar ao PATH (permanente — apenas para o usuário atual)
-[Environment]::SetEnvironmentVariable("Path", $env:PATH, "User")
-```
-
-Verifique a instalação:
-
-```powershell
-sonar-scanner --version
-```
-
-</details>
-
-<details>
-<summary><strong>macOS</strong></summary>
-
-```bash
-# Baixar e extrair o SonarScanner CLI 6.2.1
-curl -sSLo /tmp/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-macosx-aarch64.zip
-unzip -o /tmp/sonar-scanner.zip -d /opt
-mv /opt/sonar-scanner-6.2.1.4610-macosx-aarch64 /opt/sonar-scanner
-
-# Adicionar ao PATH (adicione ao ~/.zshrc para persistir)
-export PATH="$PATH:/opt/sonar-scanner/bin"
-echo 'export PATH="$PATH:/opt/sonar-scanner/bin"' >> ~/.zshrc
-```
-
-Verifique a instalação:
-
-```bash
-sonar-scanner --version
-```
-
-> 💡 Para Macs com processador Intel, substitua `macosx-aarch64` por `macosx-x64` na URL de download.
-
-</details>
-
-<details>
-<summary><strong>Linux (Debian/Ubuntu)</strong></summary>
-
-```bash
-# Baixar e extrair o SonarScanner CLI 6.2.1
-curl -sSLo /tmp/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux-x64.zip
-sudo unzip -o /tmp/sonar-scanner.zip -d /opt
-sudo mv /opt/sonar-scanner-6.2.1.4610-linux-x64 /opt/sonar-scanner
-
-# Adicionar ao PATH (adicione ao ~/.bashrc para persistir)
-export PATH="$PATH:/opt/sonar-scanner/bin"
-echo 'export PATH="$PATH:/opt/sonar-scanner/bin"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-Verifique a instalação:
-
-```bash
-sonar-scanner --version
-```
-
-</details>
-
----
-
-### Verificação do Ambiente
-
-Após instalar todos os pré-requisitos, execute os comandos abaixo para confirmar que tudo está configurado corretamente:
-
-```bash
-# Git
 git --version
-# Saída esperada: git version 2.x.x
-
-# Docker
 docker --version
-# Saída esperada: Docker version 24.x.x ou superior
-
-# Docker Compose
 docker compose version
-# Saída esperada: Docker Compose version v2.x.x
-
-# Java
-java -version
-# Saída esperada: openjdk version "17.x.x" ou equivalente
-
-# SonarScanner
+node --version
 sonar-scanner --version
-# Saída esperada: SonarScanner CLI 6.2.1
 ```
 
-> ✅ Se todos os comandos acima retornarem versões válidas, o ambiente está pronto para uso.
+> ✅ Se todos os comandos retornarem versões válidas, o ambiente está pronto para uso.
 
 ---
 
@@ -406,7 +180,7 @@ A verificação da corretude funcional de cada solução é feita diretamente na
 1. Acesse o problema correspondente na plataforma [LeetCode](https://leetcode.com/).
 2. Copie o conteúdo do arquivo `.php` correspondente, localizado em `codigos_gerados/<claude|gemini|gpt>/`.
 3. Cole o código no editor da questão correspondente.
-4. Execute o _submit_.
+4. Execute o *submit*.
 5. Registre o status obtido, o número de testes aprovados, o tempo de execução e o consumo de memória reportados pela plataforma.
 
 > ⚠️ Nenhuma alteração deve ser feita no código gerado pelas IAs. A submissão deve utilizar a saída bruta exatamente como consta no repositório.
@@ -515,16 +289,14 @@ Após a conclusão da varredura, acesse novamente `http://localhost:9000`, selec
 
 ### Resolução de Problemas
 
-| Problema                                                          | Causa provável                                                   | Solução                                                                                                 |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `docker: command not found`                                       | Docker não instalado ou não adicionado ao PATH.                  | Instale o Docker Desktop (Windows/macOS) ou o Docker Engine (Linux) conforme as instruções acima.       |
-| `Cannot connect to the Docker daemon`                             | O serviço do Docker não está em execução.                        | **Windows/macOS:** abra o Docker Desktop. **Linux:** execute `sudo systemctl start docker`.             |
-| SonarQube não abre em `localhost:9000`                            | O container ainda está inicializando.                            | Aguarde 1–2 minutos e verifique os logs com `docker compose logs -f sonarqube`.                         |
-| `sonar-scanner: command not found`                                | SonarScanner CLI não está no PATH.                               | Adicione o diretório `bin/` do SonarScanner à variável de ambiente `PATH`.                              |
-| `Error: JAVA_HOME is not set`                                     | Java 17 não está instalado ou `JAVA_HOME` não foi configurado.   | Instale o Java 17 e configure a variável `JAVA_HOME` apontando para o diretório de instalação.          |
-| `Not authorized. Analyzing this project requires authentication.` | Token inválido ou ausente no arquivo de propriedades.            | Verifique se o token foi copiado corretamente para `sonar.login` no arquivo `sonar-project.properties`. |
-| `Project not found. Key: avaliacao-llms`                          | O projeto não foi criado no SonarQube.                           | Crie o projeto manualmente na interface web com a chave `avaliacao-llms`.                               |
-| Erro de memória do Elasticsearch no container                     | O sistema operacional está com `vm.max_map_count` baixo (Linux). | Execute: `sudo sysctl -w vm.max_map_count=262144` e adicione ao `/etc/sysctl.conf` para persistir.      |
+| Problema | Causa provável | Solução |
+|---|---|---|
+| `docker: command not found` | Docker não instalado ou não adicionado ao PATH. | Instale o Docker Desktop conforme as instruções acima. |
+| `Cannot connect to the Docker daemon` | O serviço do Docker não está em execução. | Abra o Docker Desktop e aguarde a inicialização. |
+| SonarQube não abre em `localhost:9000` | O container ainda está inicializando. | Aguarde 1–2 minutos e verifique os logs com `docker compose logs -f sonarqube`. |
+| `sonar-scanner: command not found` | SonarScanner não foi instalado via npm. | Execute `npm install -g sonar-scanner` e reabra o terminal. |
+| `Not authorized. Analyzing this project requires authentication.` | Token inválido ou ausente no arquivo de propriedades. | Verifique se o token foi copiado corretamente para `sonar.login` no arquivo `sonar-project.properties`. |
+| `Project not found. Key: avaliacao-llms` | O projeto não foi criado no SonarQube. | Crie o projeto manualmente na interface web com a chave `avaliacao-llms`. |
 
 ---
 
@@ -541,8 +313,8 @@ A existência de versões fixas é importante porque alterações em ferramentas
 - O estudo possui caráter **exploratório e descritivo**, com amostra de 20 problemas e uma rodada de geração por modelo.
 - As métricas de tempo e memória são reportadas pelo LeetCode e podem sofrer variações conforme a carga da plataforma no momento da submissão.
 - As médias de tempo e memória devem considerar apenas soluções com status `Accepted`, pois soluções com `Wrong Answer` ou `Time Limit Exceeded` não apresentam métricas comparáveis.
-- A expressão **aspectos de qualidade estrutural** refere-se, neste estudo, especificamente às métricas de Complexidade Ciclomática e Complexidade Cognitiva. O estudo não mede diretamente duplicação, acoplamento, coesão, _code smells_ ou manutenibilidade percebida por desenvolvedores.
-- Os códigos gerados pelas LLMs devem ser analisados como saídas brutas. Correções manuais posteriores descaracterizariam o protocolo de avaliação em _zero-shot_.
+- A expressão **aspectos de qualidade estrutural** refere-se, neste estudo, especificamente às métricas de Complexidade Ciclomática e Complexidade Cognitiva. O estudo não mede diretamente duplicação, acoplamento, coesão, *code smells* ou manutenibilidade percebida por desenvolvedores.
+- Os códigos gerados pelas LLMs devem ser analisados como saídas brutas. Correções manuais posteriores descaracterizariam o protocolo de avaliação em *zero-shot*.
 
 ---
 
@@ -550,7 +322,7 @@ A existência de versões fixas é importante porque alterações em ferramentas
 
 **Marcelo Peixoto de Souza**  
 Estudante de Bacharelado em Sistemas de Informação  
-Instituto Federal do Sudeste de Minas Gerais (IF Sudeste MG) — _Campus Manhuaçu_
+Instituto Federal do Sudeste de Minas Gerais (IF Sudeste MG) — *Campus Manhuaçu*
 
 [![GitHub](https://img.shields.io/badge/GitHub-marcelopxt-181717?style=flat&logo=github&logoColor=white)](https://github.com/marcelopxt)
 
@@ -558,6 +330,6 @@ Instituto Federal do Sudeste de Minas Gerais (IF Sudeste MG) — _Campus Manhua�
 
 <div align="center">
 
-_Este repositório é parte de um estudo acadêmico e possui fins exclusivamente educacionais e científicos._
+*Este repositório é parte de um estudo acadêmico e possui fins exclusivamente educacionais e científicos.*
 
 </div>
